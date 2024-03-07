@@ -1,7 +1,5 @@
 <?php
 
-
-
 $entrepriseCurl = curl_init();
 curl_setopt($entrepriseCurl, CURLOPT_URL, "https://api.insee.fr/entreprises/sirene/V3/siret/38406883900016");
 curl_setopt($entrepriseCurl, CURLOPT_RETURNTRANSFER, 1);
