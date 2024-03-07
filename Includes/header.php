@@ -1,17 +1,15 @@
 <link rel="stylesheet" href="../css/nav-style.css">
 <link rel="stylesheet" href="../css/bs-color-override.css">
 
-<nav class="navbar navbar-expand-lg navbar-light bg-pd-blue p-0" id="nav-height">
+<nav class="navbar navbar-expand-lg navbar-light bg-pd-blue p-0 20vw">
   <div class="container-fluid p-0">
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse w-100" id="navbarSupportedContent">
       <ul class="navbar-nav mb-2 mb-lg-0 w-100">
-        <li class="nav-item col-lg-2 d-flex align-items-end">
-            <div class="w-100 gold-background">
-                <img src="../img/smart-devis-logo.svg" class="img-fluid">
-            </div>
+        <li class="nav-item col-lg-2 d-flex align-items-center justify-content-center bg-pd-green">
+                <img src="../img/smart-devis-logo.svg" class="vh20">
           <!-- <a class=" align-middle justify-content-center align-items-center" aria-current="page" href="#"><img class="img-fluid" src="../img/Fichier 4@2x.png"></a> -->
         </li>
         <li class="nav-item col-lg px-3 d-flex flex-column justify-content-end align-items-center">

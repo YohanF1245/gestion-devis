@@ -1,5 +1,8 @@
 #nav-height{
-    height: auto;
+    height: 20vh!important;
+}
+.vh20{
+    height: 15vh!important;
 }
 .icon-height{
     height: 60%!important;
