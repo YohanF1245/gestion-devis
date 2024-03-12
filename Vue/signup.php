@@ -19,7 +19,7 @@
                 <h2 class="text-center text-pd-yellow">CRÉER UN COMPTE</h2>
             </div>
         </div>
-        <form class="col-6 offset-3" action="../controller/check_mail.php" method="POST">
+        <form class="col-6 offset-3" action="../controller/check_signup.php" method="POST">
             <div class="mb-3">
                 <label for="userMail" class="form-label">Entrez votre e-mail :</label>
                 <input type="email" class="form-control" id="userMail" name="userMail" value=<?php echo  "\"" . $_SESSION["mail"] . "\"" ?>>
@@ -31,7 +31,7 @@
                 </div>
                 <div class="mb-3 col-6">
                     <label for="passwordConfirm" class="form-label">Confirmer votre mot de passe :</label>
-                    <input type="password" class="form-control" id="passwordConfirm" name="password">
+                    <input type="password" class="form-control" id="passwordConfirm" name="passwordConfirm">
                 </div>
             </div>
             <div class="row">
@@ -50,7 +50,7 @@
                     <input class="form-control" type="file" id="signFile" name="signFile">
                 </div>
                 <div class="mb-3 col-6">
-                    <label for="logoFile" class="form-label">Ajouter une signature</label>
+                    <label for="logoFile" class="form-label">Ajouter votre logo</label>
                     <input class="form-control" type="file" id="logoFile" name="logoFile">
                 </div>
             </div>
