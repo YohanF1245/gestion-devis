@@ -13,12 +13,12 @@
     if ($valid_mail){
         $_SESSION["mail"] = $mail;
         header("Location: ../Vue/subscribe.php");
-        echo("le mail est valide");
     }else{
-        echo("le mail est invalide");
+        $errorMessage = "Une erreur est survenue";
+        require_once (dirname(__DIR__) . "../Vue/show_error.php");
     }
 ?>
 <pre>
-    <?php 
+    <?php
     ?>
 </pre>
