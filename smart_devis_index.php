@@ -1,11 +1,5 @@
 <?php  
     require_once __DIR__ . "/DB-communication/db_connect.php";
-    $mailStatement = $mysqlClient -> prepare("SELECT * FROM users ");
-        $mailStatement ->execute();
-        $mailList = $mailStatement -> fetchAll();
-        foreach ($mailList as $user) {
-            echo $user["mail"];
-        };
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -14,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link href="CSS/bs-color-override.css" rel="stylesheet">
-    <title>Document</title>
+    <title>Accueil</title>
 </head>
 <body class="min-vh-100">
     <div class="container-fluid bg-pd-blue" style="height
@@ -33,7 +27,7 @@
     </div>
     <form class="col-4 offset-4" action="controller/check_mail.php" method="POST">
         <div class="mb-3">
-            <label for="userMail" class="form-label">Entrez votre e-mail</label>
+            <label for="userMail" class="form-label">Entrez votre e-mail :</label>
             <input type="email" class="form-control" id="userMail" name="userMail">
         </div>
         <div class="d-grid">
