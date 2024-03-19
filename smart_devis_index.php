@@ -1,5 +1,11 @@
 <?php  
-    require_once __DIR__ . "/DB-communication/db_connect.php"
+    require_once __DIR__ . "/DB-communication/db_connect.php";
+    $mailStatement = $mysqlClient -> prepare("SELECT * FROM users ");
+        $mailStatement ->execute();
+        $mailList = $mailStatement -> fetchAll();
+        foreach ($mailList as $user) {
+            echo $user["mail"];
+        };
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -11,7 +17,8 @@
     <title>Document</title>
 </head>
 <body class="min-vh-100">
-    <div class="container-fluid bg-pd-blue" style="height:15vh!important">
+    <div class="container-fluid bg-pd-blue" style="height
+    :15vh!important">
 </div>
 <div class="container mt-5">
     <div class="row">
