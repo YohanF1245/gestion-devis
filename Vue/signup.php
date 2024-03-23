@@ -19,7 +19,7 @@
                 <h2 class="text-center text-pd-yellow">CRÉER UN COMPTE</h2>
             </div>
         </div>
-        <form class="col-6 offset-3" action="../controller/check_signup.php" method="POST">
+        <form class="col-6 offset-3" action="../controller/check_signup.php" enctype="multipart/form-data" method="POST">
             <div class="mb-3">
                 <label for="userMail" class="form-label">Entrez votre e-mail :</label>
                 <input type="email" class="form-control" id="userMail" name="userMail" value=<?php echo  "\"" . $_SESSION["mail"] . "\"" ?>>
@@ -37,7 +37,7 @@
             <div class="row">
                 <div class="mb-3 col-6">
                     <label for="businessName" class="form-label"> Entrez le nom de l'entreprise : </label>
-                    <input type="text" class="form-control" id="businessName" name="businessNamme">
+                    <input type="text" class="form-control" id="businessName" name="businessName">
                 </div>
                 <div class="mb-3 col-6">
                     <label for="siret" class="form-label">Entrez votre siret : </label>
