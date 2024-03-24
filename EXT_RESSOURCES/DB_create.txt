@@ -1,0 +1,108 @@
+CREATE TABLE users(
+   user_id VARCHAR(36),
+   mail VARCHAR(128) NOT NULL,
+   signature VARCHAR(128),
+   pass VARCHAR(128) NOT NULL,
+   creation_date DATE NOT NULL,
+   update_date DATE,
+   pseudo VARCHAR(128) NOT NULL,
+   PRIMARY KEY(user_id),
+   UNIQUE(mail),
+   UNIQUE(pseudo)
+);
+
+CREATE TABLE business(
+   business_id VARCHAR(36),
+   siret INT NOT NULL,
+   logo VARCHAR(256),
+   user_id VARCHAR(36) NOT NULL,
+   PRIMARY KEY(business_id),
+   UNIQUE(siret),
+   FOREIGN KEY(user_id) REFERENCES users(user_id)
+);
+
+CREATE TABLE performance(
+   performance_id VARCHAR(36),
+   quantity INT NOT NULL,
+   designation VARCHAR(256) NOT NULL,
+   tax FLOAT NOT NULL,
+   price FLOAT NOT NULL,
+   unit VARCHAR(64),
+   PRIMARY KEY(performance_id)
+);
+
+CREATE TABLE client(
+   client_id VARCHAR(36),
+   name VARCHAR(128),
+   last_name VARCHAR(128) NOT NULL,
+   mail VARCHAR(128) NOT NULL,
+   num_street VARCHAR(64) NOT NULL,
+   street VARCHAR(128) NOT NULL,
+   zip_postal VARCHAR(128) NOT NULL,
+   index_tel VARCHAR(5),
+   phone_number VARCHAR(14),
+   town VARCHAR(256) NOT NULL,
+   is_physick BOOLEAN,
+   business_name VARCHAR(256),
+   PRIMARY KEY(client_id),
+   UNIQUE(mail)
+);
+
+CREATE TABLE reset_pass(
+   reset_pass_id VARCHAR(36),
+   reset_date DATETIME NOT NULL,
+   reset_link VARCHAR(256) NOT NULL,
+   user_id VARCHAR(36) NOT NULL,
+   PRIMARY KEY(reset_pass_id),
+   UNIQUE(reset_link),
+   FOREIGN KEY(user_id) REFERENCES users(user_id)
+);
+
+CREATE TABLE facture_emit(
+   facture_id VARCHAR(36),
+   date_creation DATE NOT NULL,
+   date_payment DATE,
+   is_paid INT,
+   majoration DECIMAL(2,2),
+   date_limit DATE,
+   PRIMARY KEY(facture_id)
+);
+
+CREATE TABLE outcome(
+   outcome_id VARCHAR(36),
+   outcome_date DATE NOT NULL,
+   outcome_amount DECIMAL(15,2) NOT NULL,
+   recipe_link VARCHAR(512),
+   business_id VARCHAR(36) NOT NULL,
+   PRIMARY KEY(outcome_id),
+   FOREIGN KEY(business_id) REFERENCES business(business_id)
+);
+
+CREATE TABLE estimate(
+   estimate_id VARCHAR(36),
+   date_creation DATE NOT NULL,
+   estimate_number INT NOT NULL,
+   validity INT NOT NULL,
+   date_expiration DATE NOT NULL,
+   intitule VARCHAR(128) NOT NULL,
+   free_zone TEXT,
+   accompte DOUBLE,
+   discount FLOAT,
+   client_id VARCHAR(36) NOT NULL,
+   PRIMARY KEY(estimate_id),
+   FOREIGN KEY(client_id) REFERENCES client(client_id)
+);
+
+CREATE TABLE estimate_tab(
+   business_id VARCHAR(36),
+   estimate_id VARCHAR(36),
+   performance_id VARCHAR(36),
+   facture_id VARCHAR(36),
+   estimate_tab_id VARCHAR(36) NOT NULL,
+   PRIMARY KEY(business_id, estimate_id, performance_id, facture_id),
+   UNIQUE(estimate_tab_id),
+   FOREIGN KEY(business_id) REFERENCES business(business_id),
+   FOREIGN KEY(estimate_id) REFERENCES estimate(estimate_id),
+   FOREIGN KEY(performance_id) REFERENCES performance(performance_id),
+   FOREIGN KEY(facture_id) REFERENCES facture_emit(facture_id)
+);
