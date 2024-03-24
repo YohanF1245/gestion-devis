@@ -20,28 +20,34 @@
             </div>
         </div>
         <form class="col-6 offset-3" action="../controller/check_signup.php" enctype="multipart/form-data" method="POST">
-            <div class="mb-3">
-                <label for="userMail" class="form-label">Entrez votre e-mail :</label>
-                <input type="email" class="form-control" id="userMail" name="userMail" value=<?php echo  "\"" . $_SESSION["mail"] . "\"" ?>>
+            <div class="row">
+                <div class="mb-3 col-6">
+                    <label for="userMail" class="form-label">Entrez votre e-mail :</label>
+                    <input type="email" class="form-control <?php if (isset($_SESSION["errorFields"]["userMail"])){echo($_SESSION["errorFields"]["userMail"]);}?>" id="userMail" name="userMail" value=<?php echo  "\"" . $_SESSION["mail"] . "\"" ?>>
+                </div>
+                <div class="mb-3 col-6">
+                    <label for="userName" class="form-label">Entrez votre pseudo : </label>
+                    <input type="text" class="form-control  <?php if (isset($_SESSION["errorFields"]["userName"])){echo($_SESSION["errorFields"]["userName"]);}?>" id="userName" name="userName">
+                </div>
             </div>
             <div class="row">
                 <div class="mb-3 col-6">
                     <label for="password" class="form-label">Entrez votre mot de passe :</label>
-                    <input type="password" class="form-control" id="password" name="password">
+                    <input type="password" class="form-control <?php if (isset($_SESSION["errorFields"]["password"])){echo($_SESSION["errorFields"]["password"]);}?>" id="password" name="password">
                 </div>
                 <div class="mb-3 col-6">
                     <label for="passwordConfirm" class="form-label">Confirmer votre mot de passe :</label>
-                    <input type="password" class="form-control" id="passwordConfirm" name="passwordConfirm">
+                    <input type="password" class="form-control  <?php if (isset($_SESSION["errorFields"]["passwordConfirm"])){echo($_SESSION["errorFields"]["passwordConfirm"]);}?>" id="passwordConfirm" name="passwordConfirm">
                 </div>
             </div>
             <div class="row">
                 <div class="mb-3 col-6">
                     <label for="businessName" class="form-label"> Entrez le nom de l'entreprise : </label>
-                    <input type="text" class="form-control" id="businessName" name="businessName">
+                    <input type="text" class="form-control  <?php if (isset($_SESSION["errorFields"]["businessName"])){echo($_SESSION["errorFields"]["businessName"]);}?>" id="businessName" name="businessName">
                 </div>
                 <div class="mb-3 col-6">
                     <label for="siret" class="form-label">Entrez votre siret : </label>
-                    <input type="text" class="form-control" id="siret" name="siret">
+                    <input type="text" class="form-control  <?php if (isset($_SESSION["errorFields"]["siret"])){echo($_SESSION["errorFields"]["siret"]);}?>" id="siret" name="siret">
                 </div>
             </div>
             <div class="row">
@@ -54,6 +60,12 @@
                     <input class="form-control" type="file" id="logoFile" name="logoFile">
                 </div>
             </div>
+            <pre>
+                <?php 
+                    print_r($_SESSION["errorFields"]);
+                    unset($_SESSION["errorFields"]);
+                ?>
+            </pre>
             <div class="d-grid">
                 <button type="submit" class="btn btn-primary ">Créer un compte</button>
             </div>

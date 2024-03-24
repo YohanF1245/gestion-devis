@@ -19,6 +19,7 @@ function checkMail($toCheck) : bool{
 }
 function checkSiret($toCheck) : bool{
     $valid = false;
+    $toCheck = intval($toCheck);
     if(checkInput($toCheck)){
         if(is_numeric($toCheck) && strlen($toCheck) === 14){
             $valid = true;

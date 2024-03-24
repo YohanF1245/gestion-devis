@@ -5,22 +5,31 @@ $signup_data = $_POST;
 $can_put_in_db = true;
 $can_upload_sign = false;
 $can_upload_logo = false;
-$errorMessage = "";
+$errorArray;
 //mkdir(dirname(__DIR__)."../img/userfiles");
 foreach ($signup_data as $key => $value) {
     switch ($key) {
         case 'usermail':
-            if(!(checkMail($value))){
+            if((checkMail($value) === false)){
+                $errorArray[$key] = "is-invalid";
                 $can_put_in_db  = false;
+            }else{
+                $errorArray[$key] = "is-valid";
             }
             break;
         case "siret" : 
             if(!(checkSiret($value))){
+                $errorArray[$key] = "is-invalid";
                 $can_put_in_db = false;
+            }else{
+                $errorArray[$key] = "is-valid";
             }
         default:
-            if(!checkInput($value)){
+            if(checkInput($value)){
                 $can_put_in_db = false;
+                $errorArray[$key] = "is-invalid";
+            }else{
+                $errorArray[$key] = "is-valid";
             }
             break;
     }
@@ -29,12 +38,15 @@ if(isset($_FILES["logoFile"]) && $_FILES["logoFile"]["error"]===0){
     switch (checkFile($_FILES["logoFile"])) {
         case 'tooBig':
             $errorMessage = "Fichier logo trop volumineux ! ";
+            $errorArray["logoFile"] = "is-invalid";
             break;
         case "wrongExtension" : 
             $errorMessage = "L'extention du fichier logo n'est pas supportée ! ";
+            $errorArray["logoFile"] = "is-invalid";
             break;
         case "true" : 
             $can_upload_logo = true;
+            $errorArray["logoFile"] = "is-valid";
             break;
     }
 }
@@ -42,12 +54,15 @@ if(isset($_FILES["signFile"]) && $_FILES["signFile"]["error"]===0){
     switch (checkFile($_FILES["signFile"])) {
         case 'tooBig':
             $errorMessage = "Fichier signature trop volumineux ! ";
+            $errorArray["signFile"] = "is-invalid";
             break;
         case "wrongExtension" : 
             $errorMessage = "L'extention du signature logo n'est pas supportée ! ";
+            $errorArray["signFile"] = "is-invalid";
             break;
         case "true" : 
             $can_upload_sign = true;
+            $errorArray["signFile"] = "is-valid";
             break;
     }
 }
@@ -59,6 +74,9 @@ if($can_put_in_db){
     $dataSet = array(
         "datas" => $signup_data
     );
+}else{
+    $_SESSION["errorFields"] = $errorArray;
+    header("Location: ../Vue/signup.php");
 }
 
 ?>
