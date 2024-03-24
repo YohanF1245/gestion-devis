@@ -3,6 +3,10 @@ require_once(__DIR__."\check_function.php");
 session_start();
 $signup_data = $_POST;
 $can_put_in_db = true;
+$can_upload_sign = false;
+$can_upload_logo = false;
+$errorMessage = "";
+//mkdir(dirname(__DIR__)."../img/userfiles");
 foreach ($signup_data as $key => $value) {
     switch ($key) {
         case 'usermail':
@@ -21,20 +25,42 @@ foreach ($signup_data as $key => $value) {
             break;
     }
 }
-switch ($_FILES['signFile']['error']) {
-    case UPLOAD_ERR_OK:
-        break;
-    case UPLOAD_ERR_NO_FILE:
-        throw new RuntimeException('No file sent.');
-    case UPLOAD_ERR_INI_SIZE:
-    case UPLOAD_ERR_FORM_SIZE:
-        throw new RuntimeException('Exceeded filesize limit.');
-    default:
-        throw new RuntimeException('Unknown errors.');
+if(isset($_FILES["logoFile"]) && $_FILES["logoFile"]["error"]===0){
+    switch (checkFile($_FILES["logoFile"])) {
+        case 'tooBig':
+            $errorMessage = "Fichier logo trop volumineux ! ";
+            break;
+        case "wrongExtension" : 
+            $errorMessage = "L'extention du fichier logo n'est pas supportée ! ";
+            break;
+        case "true" : 
+            $can_upload_logo = true;
+            break;
+    }
 }
-print_r($_FILES["signFile"]["name"]);
-// echo(checkFile($_FILES["logoFile"]));
-// echo(checkFile($_FILES["signFile"]));
+if(isset($_FILES["signFile"]) && $_FILES["signFile"]["error"]===0){
+    switch (checkFile($_FILES["signFile"])) {
+        case 'tooBig':
+            $errorMessage = "Fichier signature trop volumineux ! ";
+            break;
+        case "wrongExtension" : 
+            $errorMessage = "L'extention du signature logo n'est pas supportée ! ";
+            break;
+        case "true" : 
+            $can_upload_sign = true;
+            break;
+    }
+}
+if($signup_data["password"] != $signup_data["passwordConfirm"]){
+    $can_put_in_db = false;
+}
+
+if($can_put_in_db){
+    $dataSet = array(
+        "datas" => $signup_data
+    );
+}
+
 ?>
 <pre>
     <?php 
@@ -47,4 +73,16 @@ key : passwordConfirm value : azerty = true
 key : businessName value : squaresoft = true
 key : siret value : 1326548789566321 = true
 key : signFile value : Capture d'écran 2023-08-21 175828.png = true
-key : logoFile value : = false -->
+key : logoFile value : = false 
+
+    Array
+(
+    [name] => Capture d55((  'écran 2023-07-25 231545.png
+    [full_path] => Capture d55((  'écran 2023-07-25 231545.png
+    [type] => image/png
+    [tmp_name] => C:\xampp\tmp\phpAF27.tmp
+    [error] => 0
+    [size] => 6776
+)
+
+-->

@@ -32,16 +32,16 @@ function checkFile($toCheck) : string {
     if(isset($toCheck) && $toCheck["error"] ===0){
         $valid = ($toCheck["size"]);
         if($toCheck["size"] > 2000000){
-            $valid = "toobig";
+            $valid = "tooBig";
         }
 
     }
     $fileInfo = pathinfo($toCheck['name']);
     $extension = $fileInfo['extension'];
     $allowedExtensions = ['jpg', 'jpeg', 'gif', 'png', 'svg'];
-    // if (!in_array($extension, $allowedExtensions)) {
-    //     $valid =  "L'envoi n'a pas pu être effectué, l'extension {$extension} n'est pas autorisée";
-    // }
+     if (!in_array($extension, $allowedExtensions)) {
+         $valid =  "wrongExtension";
+     }
     return $valid;
 }
 ?>
